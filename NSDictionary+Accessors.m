@@ -65,7 +65,9 @@
     id value = [self objectForKey:key];
     if ([value isKindOfClass:[NSString class]]) {
         return value;
-    } else if ([value respondsToSelector:@selector(description)]) {
+    } else if ([value isKindOfClass:[NSNull class]]) {
+        return nil;
+    }else if ([value respondsToSelector:@selector(description)]) {
         return [value description];
     }
     return nil;
@@ -76,6 +78,8 @@
     id value = [self objectForKey:key];
     if ([value isKindOfClass:[NSNumber class]]) {
         return value;
+    } else if ([value isKindOfClass:[NSNull class]]) {
+        return nil;
     } else if ([value isKindOfClass:[NSString class]]) {
         NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
         return [nf numberFromString:value];
